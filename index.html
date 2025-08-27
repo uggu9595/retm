@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاربة الابتزاز الإلكتروني</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #0f0;
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 1px solid #0f0;
+        }
+        
+        .eagle-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            background: linear-gradient(45deg, #8B0000, #FF0000, #8B0000);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        
+        .eagle-logo::before {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: #000;
+            border-radius: 50%;
+            border: 2px solid #FFD700;
+        }
+        
+        .eagle-logo::after {
+            content: "⚡";
+            position: absolute;
+            font-size: 40px;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+        }
+        
+        h1 {
+            color: #f00;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            color: #0f0;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        .warning {
+            background-color: rgba(255, 0, 0, 0.1);
+            border: 1px solid #f00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            color: #f00;
+        }
+        
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        input {
+            padding: 12px 15px;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #0f0;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        input::placeholder {
+            color: rgba(0, 255, 0, 0.6);
+        }
+        
+        button {
+            background: linear-gradient(to bottom, #003300, #001100);
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
+        button:hover {
+            background: linear-gradient(to bottom, #004400, #002200);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+        
+        .hacking-options {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            background: linear-gradient(to bottom, #220000, #110000);
+            border: 1px solid #f00;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #f00;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+        
+        .option-card h3 {
+            margin-bottom: 15px;
+            color: #f00;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+        
+        .option-card p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: rgba(255, 0, 0, 0.7);
+        }
+        
+        .console {
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            padding: 20px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+        
+        .console-line {
+            margin-bottom: 8px;
+            color: #0f0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #0f0;
+            font-size: 14px;
+            color: rgba(0, 255, 0, 0.6);
+        }
+        
+        @media (max-width: 600px) {
+            .hacking-options {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+            }
+            to {
+                box-shadow: 0 0 15px #0f0, 0 0 20px #0f0;
+            }
+        }
+        
+        .iraqi-flag {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .flag-color {
+            width: 30px;
+            height: 10px;
+        }
+        
+        .red { background-color: #CE1126; }
+        .white { background-color: #FFFFFF; }
+        .black { background-color: #000000; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="eagle-logo"></div>
+            <h1>محاربة الابتزاز الإلكتروني</h1>
+            <p class="subtitle">نظام التوعية الأمنية والوقاية من الاختراق</p>
+            
+            <div class="iraqi-flag">
+                <div class="flag-color red"></div>
+                <div class="flag-color white"></div>
+                <div class="flag-color black"></div>
+            </div>
+        </header>
+        
+        <div class="warning">
+            ⚠️ تحذير: الابتزاز الإلكتروني جريمة يعاقب عليها القانون. هذه الأداة للتوعية والوقاية فقط.
+        </div>
+        
+        <div class="input-section">
+            <input type="text" id="targetInput" placeholder="أدخل رقم الهاتف أو اسم المستخدم (محاكاة)">
+            <button id="startBtn" class="glow">بدء المحاكاة</button>
+        </div>
+        
+        <div class="hacking-options" id="hackingOptions">
+            <div class="option-card" data-option="delete">
+                <h3>كشف الثغرات</h3>
+                <p>محاكاة عملية كشف الثغرات الأمنية</p>
+            </div>
+            
+            <div class="option-card" data-option="lock">
+                <h3>حماية البيانات</h3>
+                <p>محاكاة عملية حماية البيانات الشخصية</p>
+            </div>
+            
+            <div class="option-card" data-option="hack">
+                <h3>تأمين الحساب</h3>
+                <p>محاكاة عملية تأمين الحسابات من الاختراق</p>
+            </div>
+        </div>
+        
+        <div class="console" id="console">
+            <div class="console-line">> النظام جاهز. الرجاء إدخال الهدف وبدء المحاكاة.</div>
+        </div>
+        
+        <div class="footer">
+            <p>هذه الأداة هي لمحاكاة عملية الحماية والوقاية لأغراض تعليمية فقط.</p>
+            <p>© 2023 - مبادرة محاربة الابتزاز الإلكتروني</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const consoleElement = document.getElementById('console');
+            const targetInput = document.getElementById('targetInput');
+            const startBtn = document.getElementById('startBtn');
+            const hackingOptions = document.getElementById('hackingOptions');
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            let target = '';
+            let isHacking = false;
+            
+            // إضافة سطر إلى الكونسول
+            function addToConsole(message) {
+                const line = document.createElement('div');
+                line.className = 'console-line';
+                line.textContent = '> ' + message;
+                consoleElement.appendChild(line);
+                consoleElement.scrollTop = consoleElement.scrollHeight;
+            }
+            
+            // بدء المحاكاة
+            function startSimulation() {
+                target = targetInput.value.trim();
+                if (!target) {
+                    addToConsole('خطأ: يرجى إدخال هدف أولاً');
+                    targetInput.focus();
+                    return;
+                }
+                
+                addToConsole('بدء محاكاة الحماية للهدف: ' + target);
+                addToConsole('جاري فحص النظام المستهدف...');
+                
+                setTimeout(() => {
+                    addToConsole('تم تحديد نقاط الضعف المحتملة');
+                    addToConsole('الرجاء اختيار أحد خيارات الحماية:');
+                    hackingOptions.style.display = 'grid';
+                    startBtn.textContent = 'إعادة البدء';
+                }, 2000);
+            }
+            
+            // محاكاة عملية الحماية
+            function simulateHack(option) {
+                if (!target) {
+                    addToConsole('خطأ: يرجى إدخال هدف أولاً');
+                    return;
+                }
+                
+                isHacking = true;
+                hackingOptions.style.display = 'none';
+                
+                switch(option) {
+                    case 'delete':
+                        simulateVulnerabilityScan();
+                        break;
+                    case 'lock':
+                        simulateDataProtection();
+                        break;
+                    case 'hack':
+                        simulateAccountSecurity();
+                        break;
+                }
+            }
+            
+            // محاكاة كشف الثغرات
+            function simulateVulnerabilityScan() {
+                addToConsole('جاري محاكاة كشف الثغرات...');
+                
+                setTimeout(() => addToConsole('جاري فحص النظام لاكتشاف الثغرات...'), 1000);
+                setTimeout(() => addToConsole('تم اكتشاف 3 ثغرات أمنية محتملة...'), 2500);
+                setTimeout(() => addToConsole('جاري توليد تقرير الحماية...'), 4000);
+                setTimeout(() => addToConsole('تم إصلاح الثغرات وتأمين النظام (محاكاة)'), 6000);
+                setTimeout(() => {
+                    addToConsole('عملية محاكاة كشف الثغرات اكتملت!');
+                    isHacking = false;
+                    startBtn.textContent = 'بدء محاكاة جديدة';
+                }, 8000);
+            }
+            
+            // محاكاة حماية البيانات
+            function simulateDataProtection() {
+                addToConsole('جاري محاكاة حماية البيانات...');
+                
+                setTimeout(() => addToConsole('جاري تشفير البيانات الحساسة...'), 1000);
+                setTimeout(() => addToConsole('تم تأمين 245 ملفًا شخصيًا بنجاح (محاكاة)'), 2500);
+                setTimeout(() => addToConsole('جاري إنشاء نسخة احتياطية آمنة...'), 4000);
+                setTimeout(() => addToConsole('تم حماية البيانات بنجاح (محاكاة)'), 6000);
+                setTimeout(() => {
+                    addToConsole('عملية محاكاة حماية البيانات اكتملت!');
+                    isHacking = false;
+                    startBtn.textContent = 'بدء محاكاة جديدة';
+                }, 8000);
+            }
+            
+            // محاكاة تأمين الحساب
+            function simulateAccountSecurity() {
+                addToConsole('جاري محاكاة تأمين الحساب...');
+                
+                setTimeout(() => addToConsole('جاري تفعيل المصادقة الثنائية...'), 1000);
+                setTimeout(() => addToConsole('تم تعيين كلمات مرور قوية (محاكاة)'), 2500);
+                setTimeout(() => addToConsole('جاري مراقبة النشاط المشبوه...'), 4000);
+                setTimeout(() => addToConsole('تم تأمين الحساب بنجاح (محاكاة)'), 6000);
+                setTimeout(() => {
+                    addToConsole('عملية محاكاة تأمين الحساب اكتملت!');
+                    isHacking = false;
+                    startBtn.textContent = 'بدء محاكاة جديدة';
+                }, 8000);
+            }
+            
+            // أحداث النقر على الأزرار
+            startBtn.addEventListener('click', function() {
+                if (isHacking) return;
+                
+                if (this.textContent === 'بدء محاكاة جديدة' || this.textContent === 'إعادة البدء') {
+                    consoleElement.innerHTML = '';
+                    hackingOptions.style.display = 'none';
+                    this.textContent = 'بدء المحاكاة';
+                    targetInput.value = '';
+                    targetInput.focus();
+                    return;
+                }
+                
+                startSimulation();
+            });
+            
+            optionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    if (isHacking) {
+                        addToConsole('النظام مشغول. يرجى الانتظار...');
+                        return;
+                    }
+                    
+                    const option = this.getAttribute('data-option');
+                    simulateHack(option);
+                });
+            });
+            
+            // تركيز على حقل الإدخال عند تحميل الصفحة
+            targetInput.focus();
+        });
+    </script>
+</body>
+</html>
